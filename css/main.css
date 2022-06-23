@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
+
+:root {
+    --roboto: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #F3F3F3;
+    font-family: var(--roboto);
+}
+
+.header, .message-box {
+    left: 0;
+    right: 0;
+    height: 80px;
+    padding: 0 20px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+.header {
+    top: 0;
+    box-shadow: 0px 4px 6px 0px rgb(0, 0, 0, 0.05);
+}
+
+.header img {
+    width: 75px;
+}
+
+.header ion-icon {
+    font-size: 45px;
+}
+
+.message-box {
+    bottom: 0;
+    box-shadow: 0px -4px 6px 0px rgb(0, 0, 0, 0.05);
+}
+
+.message-box input {
+    flex: 1;
+    margin-right: 20px;
+    border: none;
+    font-size: 18px;
+    height: 65px;
+    font-family: var(--roboto);
+}
+
+.message-box input::placeholder {
+    color: #000000;
+    font-style: italic;
+    font-family: var(--roboto);
+}
+
+.message-box ion-icon {
+    font-size: 26px;
+}
+
+.chat-content {
+    margin-top: 110px;
+}
+
+.messages-users {
+    padding: 0 10px;
+}
+
+.single-message {
+    font-size: 14px;
+    font-family: var(--roboto);
+    font-weight: 400;
+    line-height: 20px;
+    line-break: anywhere;
+    border-radius: 2px;
+    padding: 14px 8px;
+    margin: 5px 0;
+}
+
+.single-message > span:first-child {
+    color: #AAAAAA;
+    margin-right: 4px;
+}
+
+.single-message strong {
+    font-weight: 700 !important;
+}
+
+.status-message {
+    background-color: #DCDCDC;
+}
+
+.public-message {
+    background-color: #ffffff;
+}
+
+.private-message {
+    background-color: #FFDEDE;
+}
