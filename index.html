@@ -13,6 +13,18 @@
 
 <body>
 
+    <div class="home-page">
+        <div>
+            <div class="error-user"><ion-icon name="alert-circle-outline"></ion-icon> <span>Nome de usuário em uso, tente outro.</span></div>
+            <img src="imgs/logo.png">
+            <div class="log-user">
+                <input type="text" class="input-sing-user" placeholder="Digite seu nome">
+                <button onclick="singUser(this)">Entrar</button>
+            </div>
+            <div class="load-room"><img src="imgs/spin-load.gif"> <span>Entrando...</span></div>
+        </div>
+    </div>
+
     <div class="header">
         <img src="imgs/logo.png">
         <ion-icon name="people"></ion-icon>
@@ -41,11 +53,12 @@
                 <span><strong>Maria</strong>  sai da sala...</span>
             </li>
         </ul>
+        <div class="cobaia"></div>
     </div>
 
     <div class="message-box">
-        <input type="text" placeholder="Escreva aqui...">
-        <ion-icon name="paper-plane-outline"></ion-icon>
+        <input class="input-user-message" type="text" placeholder="Escreva aqui...">
+        <ion-icon onclick="sendMessage(this)" name="paper-plane-outline"></ion-icon>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

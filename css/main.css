@@ -60,6 +60,7 @@ body {
 
 .chat-content {
     margin-top: 110px;
+    margin-bottom: 110px;
 }
 
 .messages-users {
@@ -96,4 +97,108 @@ body {
 
 .private-message {
     background-color: #FFDEDE;
+}
+
+.home-page {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.home-page > div {
+    margin: 100px 40px;
+    text-align: center;
+}
+
+.home-page > div > img {
+    width: 130px;
+    margin-bottom: 90px;
+}
+
+.log-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.log-user input, .log-user button {
+    font-family: var(--roboto);
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.log-user input {
+    width: 261px;
+    height: 54px;
+    color: #AEAEAE;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 10px;
+    text-align: center;
+}
+
+.log-user input::placeholder {
+    color: #AEAEAE;
+}
+
+.log-user button {
+    color: #696969;
+    background-color: #E7E7E7;
+    border: none;
+    border-radius: 9px;
+    height: 45px;
+    width: 109px;
+    cursor: pointer;
+}
+
+.log-user button:hover {
+    background-color: #c5c4c4;
+}
+
+.error-user {
+    position: fixed;
+    top: -80px;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    background-color: #f35549;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 10px 10px 0;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 2px 5px 0px rgb(0 0 0 / 25%);
+    transition: all 0.8s linear;
+}
+
+.error-user ion-icon {
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.error-on {
+    top: 0;
+    opacity: 1;
+}
+
+.load-room {
+    display: none;
+}
+
+.load-room img {
+    width: 100px;
+}
+
+.load-room span {
+    display: block;
+    font-size: 18px;
+    margin-top: 20px;
 }
