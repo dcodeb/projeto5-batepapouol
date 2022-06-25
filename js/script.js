@@ -1,24 +1,27 @@
 let userName;
+let stayConection;
 
 function conectionUser(getUsername) {
+    console.log('conectado');
     const promiseConectionUser = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', getUsername);
 }
 
 function singUser(element) {
-    const userName = document.querySelector('.input-sing-user').value;
+    userName = document.querySelector('.input-sing-user').value;
     
     const sendUsername = {
         name: userName
     }
 
+    console.log(userName);
+
     const promiseUsername = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', sendUsername);
     promiseUsername.then(reloadMessages);
     promiseUsername.catch(verifyError);
 
-    let stayConection = setInterval(function () {
+    stayConection = setInterval(function () {
         conectionUser(sendUsername);
     }, 5000);
-
 }
 
 function getMessages() {
@@ -30,7 +33,6 @@ function reloadMessages() {
     console.log('sucesso');
     let reloadMessages = setInterval(getMessages, 3000);
     showSpinLoad();
-
 }
 
 function loadMessages(messages) {
@@ -72,11 +74,14 @@ function loadMessages(messages) {
         document.querySelector('.messages-users').innerHTML += messageTemplate;
     }
 
+    document.querySelector('.messages-users').lastElementChild.scrollIntoView();
 }
 
 function sendMessage() {
     const userMessageText = document.querySelector('.input-user-message').value;
     console.log(userMessageText);
+
+    console.log(userName);
 
     const newMessage = {
         from: userName,
@@ -85,10 +90,10 @@ function sendMessage() {
         type: 'message'
     };
 
+
     const promiseSendMessage = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', newMessage);
     promiseSendMessage.then(getMessages);
-
-    document.querySelector('.cobaia').scrollIntoView();
+    promiseSendMessage.catch(errorMessage);
 }
 
 function verifyError(error) {
@@ -99,7 +104,12 @@ function verifyError(error) {
 
 }
 
-//singUser();
+function errorMessage(error) {
+    if (error.response.status === 400) {
+        window.location.reload();
+
+    }
+}
 
 function showMessageError() {
     document.querySelector('.input-sing-user').value = '';
@@ -128,6 +138,7 @@ inputField.addEventListener('blur', function () {
 inputField.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
         event.preventDefault();
-        singUser();
+        //singUser();
+        console.log('logado');
     }
 });

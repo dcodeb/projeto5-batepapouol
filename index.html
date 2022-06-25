@@ -13,7 +13,7 @@
 
 <body>
 
-    <div class="home-page">
+    <div class="home-page" style="display: none">
         <div>
             <div class="error-user"><ion-icon name="alert-circle-outline"></ion-icon> <span>Nome de usuário em uso, tente outro.</span></div>
             <img src="imgs/logo.png">
@@ -59,6 +59,26 @@
     <div class="message-box">
         <input class="input-user-message" type="text" placeholder="Escreva aqui...">
         <ion-icon onclick="sendMessage(this)" name="paper-plane-outline"></ion-icon>
+    </div>
+
+    <div class="lateral-menu">
+        <div class="content">
+            <div>
+                <h2>Escolha um contato para enviar mensagem:</h2>
+                <ul>
+                    <li class="selected-user"><ion-icon name="people"></ion-icon> <span>Todos</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                    <li><ion-icon name="person-circle"></ion-icon> <span>João</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                    <li><ion-icon name="person-circle"></ion-icon> <span>Maria</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Escolha a visibilidade:</h2>
+                <ul>
+                    <li class="selected-user"><ion-icon name="lock-open"></ion-icon> <span>Público</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                    <li><ion-icon name="lock-closed"></ion-icon> <span>Reservadamente</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
