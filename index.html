@@ -27,7 +27,7 @@
 
     <div class="header">
         <img src="imgs/logo.png">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="showHideLateralMenu()"></ion-icon>
     </div>
 
     <div class="chat-content">
@@ -62,20 +62,21 @@
     </div>
 
     <div class="lateral-menu">
+        <div class="dark-side" onclick="showHideLateralMenu()"></div>
         <div class="content">
             <div>
                 <h2>Escolha um contato para enviar mensagem:</h2>
-                <ul>
-                    <li class="selected-user"><ion-icon name="people"></ion-icon> <span>Todos</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
-                    <li><ion-icon name="person-circle"></ion-icon> <span>João</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
-                    <li><ion-icon name="person-circle"></ion-icon> <span>Maria</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                <ul class="list-users">
+                    <li class="selected-user" name="Todos"><ion-icon name="people"></ion-icon> <span name="Todos">Todos</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                    <li name="João"><ion-icon name="person-circle"></ion-icon> <span name="João">João</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                    <li name="Maria"><ion-icon name="person-circle"></ion-icon> <span name="Maria">Maria</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
                 </ul>
             </div>
             <div>
                 <h2>Escolha a visibilidade:</h2>
-                <ul>
-                    <li class="selected-user"><ion-icon name="lock-open"></ion-icon> <span>Público</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
-                    <li><ion-icon name="lock-closed"></ion-icon> <span>Reservadamente</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                <ul class="list-type">
+                    <li class="selected-type" name="message"><ion-icon name="lock-open"></ion-icon> <span>Público</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                    <li name="private_message"><ion-icon name="lock-closed"></ion-icon> <span>Reservadamente</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
                 </ul>
             </div>
         </div>

@@ -1,5 +1,7 @@
 let userName;
-let stayConection;
+let userStayConection;
+let userReceiver;
+let userMessageType;
 
 function conectionUser(getUsername) {
     console.log('conectado');
@@ -19,7 +21,7 @@ function singUser(element) {
     promiseUsername.then(reloadMessages);
     promiseUsername.catch(verifyError);
 
-    stayConection = setInterval(function () {
+    userStayConection = setInterval(function () {
         conectionUser(sendUsername);
     }, 5000);
 }
@@ -125,6 +127,17 @@ function showSpinLoad() {
     }, 5000);
 }
 
+function showHideLateralMenu() {
+    let lateralMenu = document.querySelector('.lateral-menu');
+
+    if (lateralMenu.classList.contains('lm-on-off')) {
+        lateralMenu.classList.remove('lm-on-off');
+    } else {
+        console.log('oi');
+        lateralMenu.classList.add('lm-on-off');
+    }
+}
+
 let inputField = document.querySelector('.input-sing-user');
 
 inputField.addEventListener('focus', function () {
@@ -141,4 +154,30 @@ inputField.addEventListener('keypress', function (event) {
         //singUser();
         console.log('logado');
     }
+});
+
+let ulUsers = document.querySelectorAll('.list-users li').forEach(li => {
+    li.addEventListener('click', event => {
+        let selectedUser = document.querySelector('.selected-user');
+        if (selectedUser !== null) {
+            selectedUser.classList.remove('selected-user');
+        }
+
+        li.classList.add('selected-user');
+        userMessageType = li.getAttribute('name');
+        console.log(userMessageType);
+    });
+});
+
+let ulType = document.querySelectorAll('.list-type li').forEach(li => {
+    li.addEventListener('click', event => {
+        let selectedType = document.querySelector('.selected-type');
+        if (selectedType !== null) {
+            selectedType.classList.remove('selected-type');
+        }
+
+        li.classList.add('selected-type');
+        userMessageType = li.getAttribute('name');
+        console.log(userMessageType);
+    });
 });
