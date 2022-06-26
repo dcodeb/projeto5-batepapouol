@@ -2,6 +2,7 @@ let userName;
 let userStayConection;
 let userMessageType = 'message';
 let userReceiver = 'Todos';
+let sendUsername = {};
 
 function conectionUser(getUsername) {
     console.log('conectado');
@@ -17,25 +18,13 @@ function reloadParticipants() {
 function singUser(element) {
     userName = document.querySelector('.input-sing-user').value;
     
-    const sendUsername = {
-        name: userName
-    }
+    sendUsername.name = userName;
 
     console.log(userName);
 
     const promiseUsername = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', sendUsername);
     promiseUsername.then(reloadMessages);
     promiseUsername.catch(verifyError);
-
-    userStayConection = setInterval(function () {
-        conectionUser(sendUsername);
-    }, 5000);
-
-    const promiseParticipants = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
-    promiseParticipants.then(getParticipants);
-    promiseParticipants.catch();
-
-    setInterval(reloadParticipants, 10000);
 }
 
 function getParticipants(participants) {
@@ -72,6 +61,16 @@ function reloadMessages() {
     console.log('sucesso');
     let reloadMessages = setInterval(getMessages, 3000);
     showSpinLoad();
+
+    userStayConection = setInterval(function () {
+        conectionUser(sendUsername);
+    }, 5000);
+
+    const promiseParticipants = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promiseParticipants.then(getParticipants);
+    promiseParticipants.catch();
+
+    setInterval(reloadParticipants, 10000);
 }
 
 function loadMessages(messages) {
@@ -135,11 +134,14 @@ function sendMessage() {
     const promiseSendMessage = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', newMessage);
     promiseSendMessage.then(getMessages);
     promiseSendMessage.catch(errorMessage);
+
+    userMessageText.value = '';
 }
 
 function verifyError(error) {
     if (error.response.status === 400) {
         showMessageError();
+        sendUsername = {};
 
     }
 
@@ -195,6 +197,29 @@ inputField.addEventListener('keypress', function (event) {
     }
 });
 
+function showUserReceiver() {
+    if (userReceiver === 'Todos') {
+        document.querySelector('.message-box p').innerHTML = `Enviando para Todos`;
+
+    } else {
+        let convMessageType;
+        switch (userMessageType) {
+            case 'message':
+                convMessageType = 'publicamente';
+                break;
+            case 'private_message':
+                convMessageType = 'reservadamente';
+                break;
+
+            default:
+                convMessageType = '';
+                break;
+        }
+
+        document.querySelector('.message-box p').innerHTML = `Enviando para ${userReceiver} (${convMessageType})`;
+    }
+}
+
 function clickSelectParticipants() {
     let listUsers = document.querySelectorAll('.list-users li');
     console.log(listUsers);
@@ -203,6 +228,8 @@ function clickSelectParticipants() {
             listUsers[i].classList.add('selected-user');
         }
     }
+
+    showUserReceiver();
 
     let ulUsers = document.querySelectorAll('.list-users li').forEach(li => {
         li.addEventListener('click', event => {
@@ -214,6 +241,8 @@ function clickSelectParticipants() {
             li.classList.add('selected-user');
             userReceiver = li.getAttribute('name');
             console.log(userReceiver);
+
+            showUserReceiver();
         });
     });
 }
@@ -228,5 +257,7 @@ let ulType = document.querySelectorAll('.list-type li').forEach(liType => {
         liType.classList.add('selected-type');
         userMessageType = liType.getAttribute('name');
         console.log(userMessageType);
+
+        showUserReceiver();
     });
 });
