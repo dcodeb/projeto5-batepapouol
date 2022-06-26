@@ -1,11 +1,17 @@
 let userName;
 let userStayConection;
-let userReceiver;
-let userMessageType;
+let userMessageType = 'message';
+let userReceiver = 'Todos';
 
 function conectionUser(getUsername) {
     console.log('conectado');
     const promiseConectionUser = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', getUsername);
+}
+
+function reloadParticipants() {
+    const promiseParticipants = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promiseParticipants.then(getParticipants);
+    promiseParticipants.catch();
 }
 
 function singUser(element) {
@@ -24,6 +30,37 @@ function singUser(element) {
     userStayConection = setInterval(function () {
         conectionUser(sendUsername);
     }, 5000);
+
+    const promiseParticipants = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promiseParticipants.then(getParticipants);
+    promiseParticipants.catch();
+
+    setInterval(reloadParticipants, 10000);
+}
+
+function getParticipants(participants) {
+    const allParticipants = participants.data;
+    document.querySelector('.list-users').innerHTML = '';
+    document.querySelector('.list-users').innerHTML = `
+    <li name="Todos">
+        <ion-icon name="people"></ion-icon>
+        <span>Todos</span>
+        <ion-icon name="checkmark-outline" class="check-select"></ion-icon>
+    </li>`;
+    
+    for(let i = 0; i < allParticipants.length; i++) {
+        let uniqueParticipant = allParticipants[i].name;
+        if (uniqueParticipant !== userName) {
+            document.querySelector('.list-users').innerHTML += `
+                <li name="${uniqueParticipant}">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <span>${uniqueParticipant}</span>
+                    <ion-icon name="checkmark-outline" class="check-select"></ion-icon>
+                </li>`;
+        }
+    }
+
+    clickSelectParticipants();
 }
 
 function getMessages() {
@@ -64,12 +101,14 @@ function loadMessages(messages) {
                 <span><strong>${messageUser}</strong> para <strong>${messageReceiver}</strong>: ${messageText}</span>
             </li>`;
 
-        } else if (messageUser === userName && messageType === 'private_message') {
-            messageTemplate = `
-            <li class="single-message private-message">
-                <span>(${messageTime})</span>
-                <span><strong>${messageUser}</strong> reservadamente para <strong>${messageReceiver}</strong>: ${messageText}</span>
-            </li>`;
+        } else if (messageType === 'private_message') {
+            if (messageReceiver === userName || messageUser === userName) {
+                messageTemplate = `
+                <li class="single-message private-message">
+                    <span>(${messageTime})</span>
+                    <span><strong>${messageUser}</strong> reservadamente para <strong>${messageReceiver}</strong>: ${messageText}</span>
+                </li>`;
+            }
 
         }
 
@@ -87,9 +126,9 @@ function sendMessage() {
 
     const newMessage = {
         from: userName,
-        to: 'Todos',
+        to: userReceiver,
         text: userMessageText,
-        type: 'message'
+        type: userMessageType
     };
 
 
@@ -151,33 +190,43 @@ inputField.addEventListener('blur', function () {
 inputField.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
         event.preventDefault();
-        //singUser();
+        singUser();
         console.log('logado');
     }
 });
 
-let ulUsers = document.querySelectorAll('.list-users li').forEach(li => {
-    li.addEventListener('click', event => {
-        let selectedUser = document.querySelector('.selected-user');
-        if (selectedUser !== null) {
-            selectedUser.classList.remove('selected-user');
+function clickSelectParticipants() {
+    let listUsers = document.querySelectorAll('.list-users li');
+    console.log(listUsers);
+    for (let i = 0; i < listUsers.length; i++) {
+        if (userReceiver === listUsers[i].getAttribute('name')) {
+            listUsers[i].classList.add('selected-user');
         }
+    }
 
-        li.classList.add('selected-user');
-        userMessageType = li.getAttribute('name');
-        console.log(userMessageType);
+    let ulUsers = document.querySelectorAll('.list-users li').forEach(li => {
+        li.addEventListener('click', event => {
+            let selectedUser = document.querySelector('.selected-user');
+            if (selectedUser !== null) {
+                selectedUser.classList.remove('selected-user');
+            }
+
+            li.classList.add('selected-user');
+            userReceiver = li.getAttribute('name');
+            console.log(userReceiver);
+        });
     });
-});
+}
 
-let ulType = document.querySelectorAll('.list-type li').forEach(li => {
-    li.addEventListener('click', event => {
+let ulType = document.querySelectorAll('.list-type li').forEach(liType => {
+    liType.addEventListener('click', event => {
         let selectedType = document.querySelector('.selected-type');
         if (selectedType !== null) {
             selectedType.classList.remove('selected-type');
         }
 
-        li.classList.add('selected-type');
-        userMessageType = li.getAttribute('name');
+        liType.classList.add('selected-type');
+        userMessageType = liType.getAttribute('name');
         console.log(userMessageType);
     });
 });
