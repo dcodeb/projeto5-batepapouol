@@ -48,12 +48,14 @@ body {
     border: none;
     font-size: 18px;
     width: 100%;
-    height: 42px;
+    height: 38px;
     font-family: var(--roboto);
 }
 
 .message-box > div p { 
+    font-size: 14px;
     color: #505050;
+    word-break: break-word;
 }
 
 .message-box input::placeholder {
@@ -80,7 +82,7 @@ body {
     font-family: var(--roboto);
     font-weight: 400;
     line-height: 20px;
-    line-break: anywhere;
+    word-break: break-word;
     border-radius: 2px;
     padding: 14px 8px;
     margin: 5px 0;
@@ -224,10 +226,6 @@ body {
     display: flex;
 }
 
-.lm-on-off > .content {
-    right: 0;
-}
-
 .dark-side {
     flex: 1;
     background-color: rgba(0,0,0,0.60);
@@ -235,14 +233,13 @@ body {
 
 .content {
     position: fixed;
-    right: -500px;
+    right: 0;
     width: 80%;
     max-width: 300px;
     height: 100%;
     background-color: white;
     text-align: center;
     padding: 20px;
-    transition: all 1.3s linear;
 }
 
 .content .list-users {
@@ -271,7 +268,12 @@ body {
     display: flex;
     align-items: center;
     margin: 12px 0;
-    line-break: anywhere;
+    word-break: break-word;
+}
+
+.content li:hover, .message-box > ion-icon:hover, .header > ion-icon:hover {
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .content li span {
@@ -286,4 +288,8 @@ body {
     display: block;
     font-size: 20px;
     color: #28BB25;
+}
+
+.block-type-message {
+    text-decoration: line-through;
 }

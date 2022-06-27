@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 
 <body>
@@ -19,7 +20,7 @@
             <img src="imgs/logo.png">
             <div class="log-user">
                 <input type="text" class="input-sing-user" placeholder="Digite seu nome">
-                <button onclick="singUser(this)">Entrar</button>
+                <button onclick="loginRoomUser()">Entrar</button>
             </div>
             <div class="load-room"><img src="imgs/spin-load.gif"> <span>Entrando...</span></div>
         </div>
@@ -31,42 +32,21 @@
     </div>
 
     <div class="chat-content">
-        <ul class="messages-users">
-            <li class="single-message status-message">
-                <span>(09:21:45)</span>
-                <span><strong>João</strong>  entra da sala...</span>
-            </li>
-            <li class="single-message public-message">
-                <span>(09:21:45)</span>
-                <span><strong>João</strong> para <strong>Todos</strong>: Bom dia!</span>
-            </li>
-            <li class="single-message public-message">
-                <span>(09:21:45)</span>
-                <span><strong>Maria</strong> para <strong>João</strong>: Oi João ;)</span>
-            </li>
-            <li class="single-message private-message">
-                <span>(09:21:45)</span>
-                <span><strong>João</strong> reservadamente para <strong>Maria</strong>: Oi gatinha quer tc?</span>
-            </li>
-            <li class="single-message status-message">
-                <span>(09:21:45)</span>
-                <span><strong>Maria</strong>  sai da sala...</span>
-            </li>
-        </ul>
+        <ul class="messages-users"></ul>
         <div class="cobaia"></div>
     </div>
 
     <div class="message-box">
         <div>
             <input class="input-user-message" type="text" placeholder="Escreva aqui...">
-            <p>Enviando para Maria (reservadamente)</p>
+            <p>Enviando para Todos</p>
         </div>
         <ion-icon onclick="sendMessage(this)" name="paper-plane-outline"></ion-icon>
     </div>
 
     <div class="lateral-menu">
         <div class="dark-side" onclick="showHideLateralMenu()"></div>
-        <div class="content">
+        <div class="content animate__animated animate__slideInRight animate__faster">
             <div>
                 <h2>Escolha um contato para enviar mensagem:</h2>
                 <ul class="list-users"></ul>
@@ -75,7 +55,7 @@
                 <h2>Escolha a visibilidade:</h2>
                 <ul class="list-type">
                     <li class="selected-type" name="message"><ion-icon name="lock-open"></ion-icon> <span>Público</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
-                    <li name="private_message"><ion-icon name="lock-closed"></ion-icon> <span>Reservadamente</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
+                    <li class="block-type-message" name="private_message"><ion-icon name="lock-closed"></ion-icon> <span>Reservadamente</span> <ion-icon name="checkmark-outline" class="check-select"></ion-icon></li>
                 </ul>
             </div>
         </div>
